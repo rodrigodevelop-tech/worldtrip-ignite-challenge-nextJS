@@ -1,0 +1,43 @@
+.swiper-button-next,
+.swiper-button-prev {
+  color: #FFBA08 !important;
+}
+
+.swiper-button-next::after {
+  font-size: 2rem !important; 
+  margin-right: 2rem;
+}
+
+.swiper-button-prev::after {
+  font-size: 2rem !important; 
+  margin-left: 2rem;
+}
+.swiper-pagination-bullet {
+  background: #999999 !important;
+  opacity: 1 !important;
+}
+
+.swiper-pagination-bullet.swiper-pagination-bullet-active {
+  background: #FFBA08 !important;
+}
+
+.swiper {
+  height: 27rem;
+}
+
+@media screen and (max-width: 640px) {
+  .swiper {
+    height: 16rem;
+  }
+
+  .swiper-button-next::after {
+    font-size: 1.5rem !important; 
+    margin-right: 0rem;
+  }
+  
+  
+  .swiper-button-prev::after {
+    font-size: 1.5rem !important; 
+    margin-left: 0rem;
+  }
+}
