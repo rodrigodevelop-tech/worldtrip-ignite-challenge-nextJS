@@ -1,4 +1,4 @@
-import { Box, Flex, Heading } from '@chakra-ui/react';
+import { Heading } from '@chakra-ui/react';
 import Head from 'next/head';
 import Banner from '../components/Banner';
 import ContinentsSlide from '../components/ContinentsSlide';
@@ -6,7 +6,19 @@ import Header from '../components/Header';
 import LineDivision from '../components/LineDivision';
 import TravelTypes from '../components/TravelTypes';
 
-export default function Home() {
+import { getPrismicClient } from '../services/prismic';
+import Prismic from '@prismicio/client';
+import { GetStaticProps } from 'next';
+import { Continent } from '../types';
+
+interface HomeProps {
+  continents: Continent[];
+}
+
+
+export default function Home({ continents } : HomeProps) {
+
+
   return (
     <>
       <Head>
@@ -30,8 +42,27 @@ export default function Home() {
         Então escolha seu continente
       </Heading>
 
-      <ContinentsSlide />
+      <ContinentsSlide continents={continents}/>
 
     </>
   )
+}
+
+export const getStaticProps : GetStaticProps = async () => {
+  const prismic = getPrismicClient();
+
+  const response = await prismic.query<any>(
+    [
+      Prismic.predicates.at('document.type','continents')
+    ],
+  );
+
+  // console.log(response.results)
+
+  return {
+    props: {
+      continents: response.results
+    }
+  }
+
 }

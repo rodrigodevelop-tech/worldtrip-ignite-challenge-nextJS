@@ -7,19 +7,20 @@ import SwiperCore, { Navigation,Pagination,Mousewheel,Keyboard } from 'swiper';
 import "swiper/css";
 import "swiper/css/navigation";
 import "swiper/css/pagination";
-// import styles from 'styles.module.css';
+
+import { Continent } from '../../types';
+
 
 SwiperCore.use([Navigation,Pagination,Mousewheel,Keyboard]);
 
-export default function ContinentsSlide(){
-  return(
-    <Flex
-      w="100%"
-      h="100%"
-      maxW="1240px"
-      mx="auto"
-      mb="10"
-    >
+interface ContinentsSlideProps {
+    continents: Continent[]
+  }
+
+export default function ContinentsSlide({ continents } : ContinentsSlideProps){
+
+  return (
+    <Flex w="100%" h="100%" maxW="1240px" mx="auto" mb="10">
       <Swiper
         slidesPerView={1}
         spaceBetween={50}
@@ -28,59 +29,34 @@ export default function ContinentsSlide(){
         mousewheel={true}
         keyboard={true}
         autoplay={{
-          delay:4000,
+          delay: 4000,
         }}
       >
-        <SwiperSlide>
-          <ContinentImg
-            image="images/europe.jpg"
-            title="Europa" 
-            description="O continente mais antigo"
-            slug="europa"
-          />
-        </SwiperSlide>
-        <SwiperSlide>
-          <ContinentImg
-            image="images/americanSul.jpg"
-            title="América do Sul" 
-            description="O continente mais antigo"
-            slug="europa"
-          />
-        </SwiperSlide>
-        <SwiperSlide>
-          <ContinentImg
-            image="images/america_norte.jpg"
-            title="América do Norte" 
-            description="O continente mais antigo"
-            slug="europa"
-          />
-        </SwiperSlide>
-        <SwiperSlide>
-          <ContinentImg
-            image="images/asia.jpg"
-            title="Ásia" 
-            description="O continente mais antigo"
-            slug="europa"
-          />
-        </SwiperSlide>
-        <SwiperSlide>
-          <ContinentImg
-            image="images/africa.jpg"
-            title="África" 
-            description="O continente mais antigo"
-            slug="europa"
-          />
-        </SwiperSlide>
-        <SwiperSlide>
-          <ContinentImg
-            image="images/Oceania.jpg"
-            title="Oceania" 
-            description="O continente mais antigo"
-            slug="europa"
-          />
-        </SwiperSlide>
-
+        {
+        continents !== undefined ? (
+          continents.map((continent) => {
+            return (
+              <SwiperSlide key={continent.id}>
+                <ContinentImg
+                  image={continent.data.image.url}
+                  title={continent.data.title}
+                  subtitle={continent.data.subtitle}
+                  slug={continent.uid}
+                />
+              </SwiperSlide>
+            );
+          })
+        ) : (
+          <SwiperSlide>
+            <ContinentImg
+              image="../images/africa.jpg"
+              title="Sem título"
+              subtitle="Sem descrição"
+              slug="sem slug"
+            />
+          </SwiperSlide>
+        )}
       </Swiper>
     </Flex>
-  )
+  );
 }

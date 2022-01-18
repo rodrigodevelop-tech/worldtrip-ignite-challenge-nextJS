@@ -2,14 +2,15 @@ import { Box, Flex, Heading, Image, Text, Link as ChakraLink, Button } from "@ch
 import Link, { LinkProps } from "next/link";
 
 interface ContinentImg {
-  image: string;
+  image?: string;
   title: string;
-  description: string;
+  subtitle: string;
   slug: string;
 }
 
 
-export default function ContinentImg({ image, title, description, slug } : ContinentImg){
+export default function ContinentImg({ image, title, subtitle, slug } : ContinentImg){
+  
   return(
     <Link href={`/continent/${slug}`} passHref>
       <Flex
@@ -24,10 +25,15 @@ export default function ContinentImg({ image, title, description, slug } : Conti
         bgSize="cover"
         textAlign="center"
       >
-        <Image 
-          src={image}
-          filter="brightness(0.7)"
-        />
+        {
+          image &&
+          (
+            <Image 
+            src={image}
+            filter="brightness(0.7)"
+            />
+          )
+        }
         <Box
           pos="absolute"
         >
@@ -43,7 +49,7 @@ export default function ContinentImg({ image, title, description, slug } : Conti
               fontWeight="700"
               lineHeight={["21px","36px"]}
             >
-              {description}
+              {subtitle}
             </Text>
         </Box> 
       </Flex>

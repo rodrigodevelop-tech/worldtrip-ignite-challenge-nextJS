@@ -1,8 +1,22 @@
-import { Flex, Grid, GridItem, Heading, Text} from "@chakra-ui/react";
+import { Flex, Grid, Heading } from "@chakra-ui/react";
 import CardItem from "./CardItem";
 
+interface CardsCountriesProps {
+  countries: {
+    imagecountrie: {
+      url: string;
+    }
+    countrie_name: string;
+    capital_name: string;
+    flag_countrie: {
+      url: string;
+    }
+  }[]
+}
 
-export default function CardsCountries(){
+export default function CardsCountries({
+  countries
+} : CardsCountriesProps ){
   return(  
       <Flex 
         align={["center","flex-start" ]}
@@ -30,37 +44,18 @@ export default function CardsCountries(){
             }} 
             gap={70}
           >
-            <CardItem 
-              imageCountries="europe.jpg" 
-              countrie="Londres" 
-              capital= "Reino Unido"
-              flag="flagUK.png"
-            />
-            <CardItem 
-              imageCountries="europe.jpg" 
-              countrie="Londres" 
-              capital= "Reino Unido"
-              flag="flagUK.png"
-            />
-            <CardItem 
-              imageCountries="europe.jpg" 
-              countrie="Londres" 
-              capital= "Reino Unido"
-              flag="flagUK.png"
-            />
-            <CardItem 
-              imageCountries="europe.jpg" 
-              countrie="Londres" 
-              capital= "Reino Unido"
-              flag="flagUK.png"
-            />
-            <CardItem 
-              imageCountries="europe.jpg" 
-              countrie="Londres" 
-              capital= "Reino Unido"
-              flag="flagUK.png"
-            />
-            
+            {
+              countries.map(countrie => (
+                <CardItem 
+                  key={countrie.capital_name}
+                  imageCountrie={countrie.imagecountrie.url}
+                  countrie={countrie.countrie_name}
+                  capital= {countrie.capital_name}
+                  flag={countrie.flag_countrie.url}
+                />
+              ))
+            }
+              
           </Grid>
         </Flex>
       </Flex>

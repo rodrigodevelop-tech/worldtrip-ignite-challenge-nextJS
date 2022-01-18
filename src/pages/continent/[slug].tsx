@@ -4,9 +4,37 @@ import BannerContinent from "../../components/Banner/BannerContinent";
 import CardsCountries from "../../components/Cards/CardsCountries";
 import Header from "../../components/Header";
 import InfoContinent from "../../components/InfoContinent";
+import { getPrismicClient } from "../../services/prismic";
 
+interface ContinentProps {
+  continent: {
+    id: string;
+    slugs: string;
+    data: {
+      title: string;
+      subtitle: string;
+      description: string;
+      image: {
+        url: string;
+      };
+      languages_number: string;
+      most_visited_cities_number: string;
+      countries_number: string;
+      countries: {
+        imagecountrie: {
+          url: string;
+        }
+        countrie_name: string;
+        capital_name: string;
+        flag_countrie: {
+          url: string;
+        }
+      }[]
+    }
+  }
+}
 
-export default function Continent({slug}){
+export default function Continent({ continent } : ContinentProps){
   
   return(
     <Flex direction="column">
@@ -14,18 +42,18 @@ export default function Continent({slug}){
       <Header/>
 
       <BannerContinent 
-        title="Europa"
-        image="europe.jpg"
+        title={continent.data.title}
+        image={continent.data.image.url}
       />
 
       <InfoContinent 
-        description="A Europa é, por convenção, um dos seis continentes do mundo. Compreendendo a península ocidental da Eurásia, a Europa geralmente divide-se da Ásia a leste pela divisória de águas dos montes Urais, o rio Ural, o mar Cáspio, o Cáucaso, e o mar Negro a sudeste"
-        countries_number={50}
-        languages_number={60}
-        most_visited_cities_number={27}
+        description={continent.data.description}
+        countries_number={continent.data.countries_number}
+        languages_number={continent.data.languages_number}
+        most_visited_cities_number={continent.data.most_visited_cities_number}
       />
      
-      <CardsCountries />
+      <CardsCountries countries={continent.data.countries}/>
       
     </Flex>
   )
@@ -41,9 +69,13 @@ export const getStaticPaths: GetStaticPaths = () =>{
 export const getStaticProps : GetStaticProps = async ({ params }) => {
   const { slug } = params;
 
+  const prismic = getPrismicClient();
+
+  const response = await prismic.getByUID<any>('continents',String(slug),{});
+
   return {
     props: {
-      slug
+      continent: response
     }
   }
 }

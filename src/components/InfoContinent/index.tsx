@@ -20,9 +20,9 @@ import { FiInfo } from 'react-icons/fi';
 
 interface InfoContinentProps {
   description: string;
-  countries_number: number;
-  languages_number: number;
-  most_visited_cities_number: number;
+  countries_number: string;
+  languages_number: string;
+  most_visited_cities_number: string;
 }
 
 export default function InfoContinent({

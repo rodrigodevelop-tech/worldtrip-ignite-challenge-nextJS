@@ -1,13 +1,13 @@
 import { Box, GridItem, Image,Text } from "@chakra-ui/react";
 
 interface CardItemProps {
-  imageCountries: string;
+  imageCountrie: string;
   flag: string;
   countrie: string;
   capital: string;
 }
 
-export default function CardItem( { imageCountries, flag, countrie, capital } : CardItemProps){
+export default function CardItem( { imageCountrie, flag, countrie, capital } : CardItemProps){
   return(
     <GridItem w="256px" h="279px" bg="white">
       <Box
@@ -15,7 +15,9 @@ export default function CardItem( { imageCountries, flag, countrie, capital } : 
         w="256px" 
         h="279px"
       >
-        <Image src={`../images/${imageCountries}`} h="173px" borderTopRadius={4}/>
+        <Box h="173px" maxW='256px' overflow='hidden'>
+          <Image src={imageCountrie} objectFit="cover" minH="173px" borderTopRadius={4}/>
+        </Box>
 
         <Box 
           p='6'
@@ -48,7 +50,7 @@ export default function CardItem( { imageCountries, flag, countrie, capital } : 
             </Text>
           </Box>
           <Box>
-           <Image src={`../images/${flag}`} w="30px" h="30px" borderRadius="30"/>
+           <Image src={flag} w="30px" h="30px" borderRadius='full'/>
           </Box>
         </Box>
       </Box>

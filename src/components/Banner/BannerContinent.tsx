@@ -9,7 +9,7 @@ export default function BannerContinent( {title,image} : BannerContinent){
   
   return(
       <Flex
-        bgImage={`url('../images/${image}')`}
+        bgImage={`url(${image})`}
         w="100%"
         h={["183px","500px"]}
         bgRepeat="no-repeat"
